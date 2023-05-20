@@ -1,6 +1,7 @@
 <script>
   import Card from "../shared/Card.svelte";
   import { tweened } from "svelte/motion";
+  import PollStore from "../stores/pollStore";
 
   export let poll;
   const tweenedA = tweened(0);
@@ -14,14 +15,23 @@
   const calculatePercent = (/** @type {number} **/ votes) => {
     return Math.floor((100 / totalVotes) * votes) || 0;
   };
+
+  const handleVote = (index, id) => {
+    PollStore.update((currentPoll) => {
+      let copiedPolls = [...currentPoll];
+      let upvotedPoll = copiedPolls.find((poll) => poll.id == id);
+      upvotedPoll.answers[index].votes++;
+      return copiedPolls;
+    });
+  };
 </script>
 
 <Card>
   <div class="poll">
     <h3>{poll.question}</h3>
     <p>Total votes: {totalVotes}</p>
-    {#each poll.answers as answer}
-      <div class="answer">
+    {#each poll.answers as answer, index}
+      <div class="answer" on:click={() => handleVote(index, poll.id)}>
         <div
           class="percent percent-a"
           style="width: {calculatePercent(answer.votes)}%"
