@@ -6,11 +6,15 @@
   let activeItem = "Current Polls";
   const tabChange = (/** @type {{ detail: string; }} */ e) =>
     (activeItem = e.detail);
+
+  const handleAdd = () => {
+    activeItem = "Current Polls";
+  };
 </script>
 
 <Tabs {activeItem} {items} on:tabChange={tabChange} />
 {#if activeItem === "Current Polls"}
   <PollList />
 {:else if activeItem === "Add New Poll"}
-  <CreatePollForm />
+  <CreatePollForm on:add={handleAdd} />
 {/if}
