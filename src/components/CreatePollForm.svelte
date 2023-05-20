@@ -1,7 +1,9 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import Button from "../shared/Button.svelte";
+  import PollStore from "../stores/pollStore";
 
+  let dispatch = createEventDispatcher();
   let question = "";
   let errors = { question: "", answers: [] };
   let answers = [];
@@ -26,7 +28,14 @@
           : "";
     });
     if (valid) {
-      // Add Poll for global other polls
+      let poll = {
+        question,
+        id: Math.random(),
+        answers: answers.map((answer) => ({ title: answer, votes: 0 })),
+      };
+      PollStore.update((currentPolls) => [poll, ...currentPolls]);
+
+      dispatch("add");
     }
   };
 
