@@ -1,10 +1,11 @@
 <script>
   import PollStore from "../stores/pollStore.js";
+  import PollDetails from "./PollDetails.svelte";
 </script>
 
 <div class="poll-list">
-  {#each $PollStore as poll (poll.id)}
-    {JSON.stringify(poll)}
+  {#each $PollStore as poll}
+    <PollDetails {poll} />
   {/each}
 </div>
 
