@@ -17,11 +17,14 @@
     return Math.floor((100 / totalVotes) * votes) || 0;
   };
 
-  const handleVote = (index, id) => {
+  const handleVote = (
+    /** @type {number} **/ pollId,
+    /** @type {number} **/ answerIndex
+  ) => {
     PollStore.update((currentPoll) => {
       let copiedPolls = [...currentPoll];
-      let upvotedPoll = copiedPolls.find((poll) => poll.id == id);
-      upvotedPoll.answers[index].votes++;
+      let upVotedPoll = copiedPolls.find((poll) => poll.id == pollId);
+      upVotedPoll.answers[answerIndex].votes++;
       return copiedPolls;
     });
   };
@@ -37,7 +40,11 @@
     <h3>{poll.question}</h3>
     <p>Total votes: {totalVotes}</p>
     {#each poll.answers as answer, index}
-      <div class="answer" on:click={() => handleVote(index, poll.id)}>
+      <div
+        class="answer"
+        on:click={() => handleVote(poll.id, index)}
+        on:keydown={null}
+      >
         <div
           class="percent percent-a"
           style="width: {calculatePercent(answer.votes)}%"
