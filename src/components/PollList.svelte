@@ -1,7 +1,7 @@
 <script>
   import PollStore from "../stores/pollStore.js";
   import PollDetails from "./PollDetails.svelte";
-  import { fade, slide, scale } from "svelte/transition";
+  import { fade, scale } from "svelte/transition";
   import { flip } from "svelte/animate";
 </script>
 
