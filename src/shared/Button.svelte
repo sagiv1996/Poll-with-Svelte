@@ -1,8 +1,8 @@
-<script lang="ts">
+<script>
   export let color = "primary";
   export let flat = false;
   export let inverse = false;
-  export let type: "submit" | "reset" | "button" = "submit";
+  export let /** @type {"submit" | "reset" | "button"} */ type = "submit";
 </script>
 
 <button class:flat class:inverse class={color} {type} on:click>
