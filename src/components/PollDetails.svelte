@@ -2,6 +2,7 @@
   import Card from "../shared/Card.svelte";
   import { tweened } from "svelte/motion";
   import PollStore from "../stores/pollStore";
+  import Button from "../shared/Button.svelte";
 
   export let poll;
   const tweenedA = tweened(0);
@@ -24,6 +25,11 @@
       return copiedPolls;
     });
   };
+  const handleDelete = (/** @type {number} **/ id) => {
+    PollStore.update((polls) => {
+      return polls.filter((poll) => poll.id != id);
+    });
+  };
 </script>
 
 <Card>
@@ -39,6 +45,9 @@
         <span>{answer.title} ({answer.votes} votes)</span>
       </div>
     {/each}
+    <div class="delete">
+      <Button flat={true} on:click={() => handleDelete(poll.id)}>Delete</Button>
+    </div>
   </div>
 </Card>
 
