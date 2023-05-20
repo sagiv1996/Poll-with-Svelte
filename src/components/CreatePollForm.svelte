@@ -5,8 +5,8 @@
 
   let dispatch = createEventDispatcher();
   let question = "";
-  let errors = { question: "", answers: [] };
-  let answers = [];
+  let errors = { question: "", answers: [""] };
+  let answers = [""];
   let valid = false;
 
   const resetErrorsFrom = () => {
