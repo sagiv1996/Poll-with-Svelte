@@ -62,17 +62,14 @@
 <form on:submit|preventDefault={submitHandler}>
   <div class="form-field">
     <label for="question">Poll Question:</label>
-    <input type="text" class="question" id="question" bind:value={question} />
+    <input type="text" id="question" bind:value={question} />
     <div class="error">{errors.question}</div>
   </div>
   {#each answers as answer, index}
     <div class="form-field">
-      <label class="answer" for="answer-{index}"
-        >Answer {index + 1} value:</label
-      >
-
       {#if answers.length > 1}
         <button
+          title="Delete Row!"
           on:click={() => handleDelete(index)}
           type="button"
           class="delete-button"
@@ -80,12 +77,9 @@
           <i class="fas fa-trash-alt" />
         </button>
       {/if}
-      <input
-        class="answer"
-        type="text"
-        id="answer-{index}"
-        bind:value={answers[index]}
-      />
+      <label for="answer-{index}">Answer {index + 1} value:</label>
+
+      <input type="text" id="answer-{index}" bind:value={answers[index]} />
 
       <div class="error">{errors.answers[index]}</div>
     </div>
@@ -105,14 +99,7 @@
   }
   input {
     border-radius: 6px;
-  }
-  input.question,
-  label.answer {
     width: 100%;
-  }
-
-  input.answer {
-    width: 50%;
   }
   label {
     margin: 10px auto;
