@@ -1,10 +1,11 @@
-<script>
-  export let type = "primary";
+<script lang="ts">
+  export let color = "primary";
   export let flat = false;
   export let inverse = false;
+  export let type: "submit" | "reset" | "button" = "submit";
 </script>
 
-<button class:flat class:inverse class={type} on:click>
+<button class:flat class:inverse class={color} {type} on:click>
   <slot />
 </button>
 
